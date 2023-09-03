@@ -1,0 +1,139 @@
+body {
+  position: relative;
+  margin: 0;
+  padding: 30px 0 0 0;
+  height: 100vh;
+  width: 100vw;
+ background: radial-gradient(circle at 10% 20%, rgb(226, 240, 254) 0%, rgb(255, 247, 228) 90%);
+  /* background-image: url("./images/paris.jpeg"); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-family: "Ruwudu", serif;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+/* body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: inherit;
+  background-size: inherit;
+  background-repeat: inherit;
+  background-position: inherit;
+  filter: blur(3px);
+  z-index: -1;
+} */
+
+@media (max-width: 768px) {
+  body {
+    background-position: center top;
+  }
+}
+
+.city-weather {
+  background: linear-gradient(
+    to top,
+    rgb(12, 52, 131) 0%,
+    rgb(162, 182, 223) 100%,
+    rgb(107, 140, 206) 100%,
+    rgb(162, 182, 223) 100%
+  );
+  border-radius: 16px;
+  width: 40%;
+  min-width: 550px;
+  margin: 0px auto;
+  padding: 40px;
+}
+
+#search-city {
+  width: 50%;
+  border-radius: 5px;
+  border: 0.5px solid #00b7c2;
+  padding: 7px;
+}
+.submit-city {
+
+  margin-top: 4px;
+}
+#current-location {
+  margin-top: 4px;
+}
+.WeatherInfo {
+  margin-top: 30px;
+}
+
+.temperature-container {
+  font-size: 40px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+ul {
+  padding-left: 0;
+  margin-left: 0;
+}
+li {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  margin-bottom: 5px;
+}
+/* .general-city {
+  margin: 20px 0;
+  display: flex;
+  justify-content: flex-start;
+} */
+/* .city-date {
+  font-weight: bold;
+}
+.sun {
+  font-size: 50px;
+  margin-left: 10px;
+}
+.temperature-today {
+  float: none;
+  font-size: 3rem;
+} */
+.days5 {
+  padding: 0px;
+}
+.day {
+  font-size: 23px;
+  font-weight: bolder;
+}
+.temperature-max,
+.temperature-min,
+.emoji {
+  word-spacing: 5px;
+  font-size: 15px;
+}
+.temperature-min {
+  opacity: 0.7;
+}
+.col {
+  text-align: center;
+  padding: 20px 0;
+  margin: 0 5px;
+  transition: all 200ms ease-in-out;
+  border-radius: 25px;
+}
+.col:hover {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+  cursor: pointer;
+}
+#celsius-link,
+#fahrenheit-link {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 30px;
+}
+#celsius-link:hover,
+#fahrenheit-link:hover {
+  text-decoration: underline;
+}
