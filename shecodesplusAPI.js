@@ -90,11 +90,6 @@ function searchingCity(event) {
 let searchingForm = document.querySelector("#search");
 searchingForm.addEventListener("submit", searchingCity);
 
-// function showWeather(response) {
-// console.log(response.data);
-// let cityName = document.querySelector("#city-name");
-// cityName.innerHTML = response.data.name
-// }
 
 function getCurrentLocation(position) {
   let lat = position.coords.latitude;
@@ -109,46 +104,3 @@ function position(position) {
 
 let currentGeolocationButton = document.querySelector("#current-location");
 currentGeolocationButton.addEventListener("click", position);
-
-//let userInput = prompt("Provide us a city name");
-
-// if (userInput) {
-//   let inputedCity = cities.find(function (city) {
-//     return userInput.toLowerCase() === city.name.toLowerCase();
-//   });
-//   if (inputedCity) {
-//     const cityName = document.getElementById("city-name");
-//     const temperature = document.getElementById("temperature");
-//     const body = document.getElementById("city-background");
-//     cityName.innerHTML = inputedCity.name;
-//     temperature.innerHTML = inputedCity.temperature + "°C";
-//     body.style.backgroundImage = `url(${inputedCity.image})`;
-//   } else {
-//     alert("City not found");
-//   }
-// }
-
-// const form = document.getElementById("search");
-// form.addEventListener("submit", function (event) {
-//   event.preventDefault();
-
-//   const input = document.getElementById("search-city");
-
-//   if (input.value) {
-//     let inputedCity = cities.find(function (city) {
-//       return input.value.trim().toLowerCase() === city.name.toLowerCase();
-//     });
-//     if (inputedCity) {
-//       const cityName = document.getElementById("city-name");
-//       const temperature = document.getElementById("temperature");
-//       const body = document.getElementById("city-background");
-//       cityName.innerHTML = inputedCity.name;
-//       temperature.innerHTML = inputedCity.temperature + "°C";
-//       body.style.backgroundImage = `url(${inputedCity.image})`;
-//       input.value = null;
-//     } else {
-//       alert("City not found");
-//       input.value = null;
-//     }
-//   }
-// });
