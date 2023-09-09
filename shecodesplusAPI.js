@@ -63,12 +63,14 @@ function showGeolocation(response) {
   let description = document.querySelector("#description");
   let windSpeed = document.querySelector("#wind-speed");
   let imageToday = document.querySelector("#img-today");
+  let feelsTemp = document.querySelector("#feels-like");
 
   let cityName = response.data.name;
   let humidityToday = response.data.main.humidity;
   let weatherDescription = response.data.weather[0].main;
   let weatherIcon = response.data.weather[0].icon;
   let windSpeedToday = `${Math.round(response.data.wind.speed)} km/h`;
+  let feelsLikeTemp = `${Math.round(response.data.main.feels_like)}°C`;
 
   nameOfCity.innerHTML = cityName;
   temperatureToday.innerHTML = cityTemperature;
@@ -76,6 +78,7 @@ function showGeolocation(response) {
   description.innerHTML = weatherDescription;
   windSpeed.innerHTML = windSpeedToday;
   imageToday.src = `http://openweathermap.org/img/wn/${weatherIcon}.png`;
+  feelsTemp.innerHTML = feelsLikeTemp;
 }
 
 function searchingCity(event) {
@@ -85,11 +88,18 @@ function searchingCity(event) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(showGeolocation);
+  searchingLine.value = "";
+  // searchingLine.focus()
 }
 
 let searchingForm = document.querySelector("#search");
 searchingForm.addEventListener("submit", searchingCity);
 
+// function showWeather(response) {
+// console.log(response.data);
+// let cityName = document.querySelector("#city-name");
+// cityName.innerHTML = response.data.name
+// }
 
 function getCurrentLocation(position) {
   let lat = position.coords.latitude;
@@ -104,3 +114,4 @@ function position(position) {
 
 let currentGeolocationButton = document.querySelector("#current-location");
 currentGeolocationButton.addEventListener("click", position);
+

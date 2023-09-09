@@ -52,7 +52,7 @@
                 <ul>
                   <li><span id="current-date"></span></li>
                   <li>Humidity: <strong id="humidity">90</strong> <b>%</b></li>
-                  <li id="description">Sunny</li>
+                  <!-- <li id="description">Sunny</li> -->
                   <li>Wind speed: <span id="wind-speed"></span></li>
                 </ul>
               </div>
@@ -67,12 +67,17 @@
                       src="https://openweathermap.org/img/wn/01d.png"
                     />
                   </span>
-                  <div>
+                  <div class="col-6">
                     <span id="temperature-today">30</span>
                     <span class="units">
                       <a href="#" id="celsius-link">°C</a>
                       <a href="#" id="fahrenheit-link">°F</a>
                     </span>
+                    <div class="feels-like">
+                      <span id="description">Sunny</span>
+                      <br />
+                      Feels like: <span id="feels-like">25°C</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -80,7 +85,7 @@
           </div>
         </div>
       </div>
-
+<!-- 
       <div class="container days5">
         <div class="row">
           <div class="col">
@@ -124,9 +129,10 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </section>
-   <p id="link-github"><a href="https://github.com/inna77777/project-shecodesplus">Open-source code </a>by Inna Kobets</p>
+    <p id="gitLink"><a href="">Open-source code</a> by Inna Kobets</p>
+
     <script src="./shecodesplusAPI.js"></script>
   </body>
 </html>
