@@ -48,11 +48,11 @@ let temperatureCelsius = document.querySelector("#celsius-link");
 temperatureFahrenheit.addEventListener("click", convertToFarenheit);
 temperatureCelsius.addEventListener("click", convertToCelcius);
 
-const apiKey = "2528bb449c83030b0b8168f0cf74654c";
+const apiKey = "7928b8fafat7344abbe4f90d8711dbbo";
 
 function showGeolocation(response) {
   console.log(response.data);
-  let cityTemperature = Math.round(response.data.main.temp);
+  let cityTemperature = Math.round(response.data.temperature.current);
 
   initialCelciusTemperature = cityTemperature;
   temperatureType = "celcius";
@@ -65,27 +65,31 @@ function showGeolocation(response) {
   let imageToday = document.querySelector("#img-today");
   let feelsTemp = document.querySelector("#feels-like");
 
-  let cityName = response.data.name;
-  let humidityToday = response.data.main.humidity;
-  let weatherDescription = response.data.weather[0].main;
-  let weatherIcon = response.data.weather[0].icon;
+  let cityName = response.data.city;
+  let humidityToday = response.data.temperature.humidity;
+  let weatherDescription = response.data.condition.description;
+  let weatherIcon = response.data.condition.icon;
   let windSpeedToday = `${Math.round(response.data.wind.speed)} km/h`;
-  let feelsLikeTemp = `${Math.round(response.data.main.feels_like)}°C`;
+  let feelsLikeTemp = `${Math.round(response.data.temperature.feels_like)}°C`;
 
   nameOfCity.innerHTML = cityName;
   temperatureToday.innerHTML = cityTemperature;
   humidity.innerHTML = humidityToday;
   description.innerHTML = weatherDescription;
   windSpeed.innerHTML = windSpeedToday;
-  imageToday.src = `http://openweathermap.org/img/wn/${weatherIcon}.png`;
+  imageToday.src = `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${weatherIcon}.png`;
   feelsTemp.innerHTML = feelsLikeTemp;
+  // ! FORECAST URL $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+  const forecastApiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${cityName}&key=${apiKey}`;
+
+  axios.get(forecastApiUrl).then(forecastFor6Days);
 }
 
 function searchingCity(event) {
   event.preventDefault();
   let searchingLine = document.querySelector("#search-city");
   let city = searchingLine.value;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
 
   axios.get(apiUrl).then(showGeolocation);
   searchingLine.value = "";
@@ -95,23 +99,57 @@ function searchingCity(event) {
 let searchingForm = document.querySelector("#search");
 searchingForm.addEventListener("submit", searchingCity);
 
-// function showWeather(response) {
-// console.log(response.data);
-// let cityName = document.querySelector("#city-name");
-// cityName.innerHTML = response.data.name
-// }
-
 function getCurrentLocation(position) {
-  let lat = position.coords.latitude;
-  let lon = position.coords.longitude;
-  let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+  const { latitude: lat, longitude: lon } = position.coords;
+  let url = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}`;
   axios.get(url).then(showGeolocation);
 }
 
-function position(position) {
+function position() {
   navigator.geolocation.getCurrentPosition(getCurrentLocation);
 }
+
+position();
 
 let currentGeolocationButton = document.querySelector("#current-location");
 currentGeolocationButton.addEventListener("click", position);
 
+function getDayName(time) {
+  let days = ["Sun", "Mon", "Tue", "Wen", "Thu", "Fri", "Sat"];
+  let date = new Date(time * 1000);
+  let dayNumber = date.getDay();
+  let day = days[dayNumber];
+
+  return day;
+}
+
+function forecastFor6Days(response) {
+  const forecastDays = response.data.daily;
+  let divForecast = document.querySelector("#days6");
+  let forecastHTML = `<div class="row">`;
+
+  forecastDays.forEach(function (forecastDay, index) {
+    if (index > 0) {
+      let dayName = getDayName(forecastDay.time);
+      let temperatureMinimum = Math.round(forecastDay.temperature.minimum);
+      let temperatureMaximum = Math.round(forecastDay.temperature.maximum);
+      let icons = forecastDay.condition.icon;
+
+      forecastHTML += `
+        <div class="col">
+          <div class="day">${dayName}</div>
+             <img class="icons-forecast"
+                src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${icons}.png"
+                    />
+          <div class="temperature-max">
+            ${temperatureMaximum}°C
+            <div class="temperature-min">${temperatureMinimum}°C</div>
+          </div>
+        </div>`;
+    }
+  });
+
+  forecastHTML += `</div>`;
+
+  divForecast.innerHTML = forecastHTML;
+}
